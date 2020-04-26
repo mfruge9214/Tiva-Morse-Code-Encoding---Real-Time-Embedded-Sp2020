@@ -89,7 +89,8 @@ void GetAndTranslateTask(void* pvParameters)
     int i;
     while(1)
     {
-        UARTprintf(" Please input a message to encode (%d character limit, Alphanumeric Characters Only)\n");
+        UARTprintf(" Please input a message to encode (%d character limit, Alphanumeric Characters Only)\n", MAX_INPUT_LENGTH);
+
         // Get string from user
         UARTgets(string, MAX_INPUT_LENGTH);
 
@@ -112,7 +113,6 @@ void GetAndTranslateTask(void* pvParameters)
 
         // Block the Task until the Flasher Task finished
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-        while(xQueueReceive())
     }
 }
 
