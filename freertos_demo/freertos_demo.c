@@ -69,7 +69,6 @@ extern QueueHandle_t mqTranslatedChars;
 //*****************************************************************************
 int main(void)
 {
-    char input[50];
     //
     // Set the clocking to run at 50 MHz from the PLL.
     //
@@ -86,55 +85,10 @@ int main(void)
 
     mqTranslatedChars = xQueueCreate(MAX_INPUT_LENGTH, sizeof(MorseTranslation_t));
 
-//    SequencerSmphr = xSemaphoreCreateBinary();
-//    TimerSmphr = xSemaphoreCreateBinary();
-//
-//    for(i = 0; i<NUM_SERVICES; i++)
-//    {
-//        ServiceSmphrs[i] = xSemaphoreCreateBinary();
-//    }
-//
-//    // Highest Priority Task should be the sequencer, which will initialize the hardware timer and use it to dispatch other tasks
-//
-//    BaseType_t Fib10Returned;
-
-//    BaseType_t SequencerReturned, GetFrameReturned, ImgAnalysisReturned, ImgProcReturned, SaveTimestampReturned, SaveImgReturned, SendImgReturned, LoggerReturned;
-//    Fib10Returned, Fib40Returned;
-
     BaseType_t GetStringReturned, WriteLEDReturned;
 
     WriteLEDReturned = xTaskCreate(FlashMorseTask, "FLash LED", 2000, (void *) NULL, (configMAX_PRIORITIES - 1), &thFlashMorse);
     GetStringReturned = xTaskCreate(GetAndTranslateTask, "Get and decode task", 2000, (void *) NULL, (configMAX_PRIORITIES - 2), &thGetAndTrans);
-
-    //    TimerHandle_t myTimer;
-//    TickType_t TimerPeriod = pdMS_TO_TICKS( 10 );  // 10 ms
-
-    /* Initialize Sequencing Semaphores */
-
-//    ExecutionSmphr = xSemaphoreCreateBinary();
-//    xSemaphoreGive(ExecutionSmphr);
-
-//    myTimer = xTimerCreate("Software Timer", TimerPeriod, pdTRUE, (void *) 0, myTimerCallback);
-
-//    xTimerStart(myTimer, 0);
-
-    // Highest Priority Task
-
-//
-//    // 3Hz service
-//    GetFrameReturned = xTaskCreate(GetFrameTask, "Service 1", configMINIMAL_STACK_SIZE, (void*) NULL, (configMAX_PRIORITIES - 2), &thGetFrame);
-//
-////    // 1Hz Services
-//    ImgAnalysisReturned = xTaskCreate(ImgAnalysisTask, "Service 2", configMINIMAL_STACK_SIZE, (void *) NULL, (configMAX_PRIORITIES - 3), &thImgAnalysis);
-//    SaveTimestampReturned = xTaskCreate(SaveTimestampTask, "Service 4", configMINIMAL_STACK_SIZE, (void *) NULL, (configMAX_PRIORITIES - 3), &thSaveTimestamp);
-//    SendImgReturned = xTaskCreate(SendImgTask, "Service 6", configMINIMAL_STACK_SIZE, (void *) NULL, (configMAX_PRIORITIES - 3), &thSendImg);
-//
-//    // .5Hz Services
-//    ImgProcReturned = xTaskCreate(ImgProcTask, "Service 3", configMINIMAL_STACK_SIZE, (void *) NULL, (configMAX_PRIORITIES - 4), &thImgProc);
-//    SaveImgReturned = xTaskCreate(SaveImgTask, "Service 5", configMINIMAL_STACK_SIZE, (void *) NULL, (configMAX_PRIORITIES - 4), &thSaveImg);
-//
-//    // .1Hz service
-//    LoggerReturned = xTaskCreate(LoggerTask, "Service 7", configMINIMAL_STACK_SIZE, (void *) NULL, (configMAX_PRIORITIES - 5), &thLogger);
 
 
     vTaskStartScheduler();

@@ -31,6 +31,12 @@ int DecodeString(char* str, MorseTranslation_t* ret)
 //    MorseUnit_e (*MorseWord)[MAX_MORSE_UNITS];
     MorseUnit_e* Morseword;
 
+    morsechar = MorseLookup[NUM_MORSE_CHARS - 1];
+
+    translated_string[i] = morsechar;
+
+    i++;
+
     while(str[i] != 0 && i < MAX_INPUT_LENGTH)
     {
         current = str[i];
@@ -85,7 +91,7 @@ static int LookupIdx(char c)
     }
     else if( c == ' ')      // Handles Space
     {
-        index = NUM_MORSE_CHARS - 1;    // Last entry in thee lookup table
+        index = NUM_MORSE_CHARS - 2;    // Last entry in thee lookup table
     }
 
     return index;

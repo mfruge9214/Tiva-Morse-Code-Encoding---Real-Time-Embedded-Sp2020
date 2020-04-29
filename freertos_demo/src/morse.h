@@ -6,14 +6,15 @@
 
 #define UPPER_CASE_SHIFT    32
 #define MAX_MORSE_UNITS     6
-#define NUM_MORSE_CHARS     37
-#define MAX_INPUT_LENGTH    50
+#define NUM_MORSE_CHARS     38
+#define MAX_INPUT_LENGTH    51
 
 typedef enum {
     DOT = 1,
     DASH = 2,
     END = 3,
-    SPACE = 4
+    SPACE = 4,
+    START = 5
 } MorseUnit_e;
 
 typedef struct {
@@ -57,8 +58,8 @@ static MorseTranslation_t MorseLookup[NUM_MORSE_CHARS] = {
                                                        {DASH, DASH, DOT, DOT, DOT, END},     // 7
                                                        {DASH, DASH, DASH, DOT, DOT, END},    // 8
                                                        {DASH, DASH, DASH, DASH, DOT, END},    // 9
-                                                       {SPACE, END}                                // Space character
-
+                                                       {SPACE, END},                                // Space character
+                                                       {START}                         // Start indicator
 };
 
 

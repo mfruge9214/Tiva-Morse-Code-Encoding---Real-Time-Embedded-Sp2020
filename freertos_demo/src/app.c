@@ -38,7 +38,10 @@ void init_led_gpio(void) {
     GPIOPinTypeGPIOOutput(GREEN_GPIO_BASE, GREEN_GPIO_PIN);
     GPIOPinWrite(RED_GPIO_BASE, RED_GPIO_PIN, 0x0);
     GPIOPinWrite(BLUE_GPIO_BASE, BLUE_GPIO_PIN, 0x0);
-    GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_PIN, 0x0);
+    GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_PIN, GREEN_GPIO_PIN);
+//    vTaskDelay(pdMS_TO_TICKS(100));
+//    GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_PIN, 0x0);
+
 }
 
 
@@ -99,12 +102,10 @@ void GetAndTranslateTask(void* pvParameters)
         if(decodeRet < 0)
         {
             // Raise an error, should be positive unless invalid characters
-            xQueueSend(LogMsgQueue, )
+//            xQueueSend(LogMsgQueue, )
         }
 
-
         // DecodeRet holds amount of characters that were translated to Morse
-
         // Add to message queue for flashing task
         for(i = 0; i < decodeRet; i++)
         {
@@ -140,7 +141,7 @@ void FlashMorseTask(void* pvParameters)
             {
                 LEDWrite(currentMorseChar.MorseWord[i]);
 
-                if(currentMorseChar.MorseWord[i] == END)
+                if(currentMorseChar.MorseWord[i] == END || currentMorseChar.MorseWord[i] == START)
                 {
                     break;
                 }
@@ -152,6 +153,7 @@ void FlashMorseTask(void* pvParameters)
             {
                 // Unblock the UI/Translate task
                 xTaskNotify( thGetAndTrans, 0, eNoAction );
+                GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_PIN, GREEN_GPIO_PIN);
             }
         }
 
@@ -171,12 +173,16 @@ void LEDWrite(MorseUnit_e unit)
             GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_PIN, GREEN_GPIO_PIN);
             break;
         case END:
-            unitDuration = DOT_UNIT_LEN;
+            unitDuration = END_UNIT_LEN;
             GPIOPinWrite(BLUE_GPIO_BASE, BLUE_GPIO_PIN, BLUE_GPIO_PIN);
             break;
         case SPACE:
-            unitDuration = DOT_UNIT_LEN;
+            unitDuration = SPACE_UNIT_LEN;
             GPIOPinWrite(RED_GPIO_BASE, RED_GPIO_PIN, RED_GPIO_PIN);
+            break;
+        case START:
+            unitDuration = START_UNIT_LEN;
+            GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_PIN, 0x0);
             break;
         default:
             // Catch error
@@ -186,7 +192,7 @@ void LEDWrite(MorseUnit_e unit)
     StartMorseTimer();
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
-    // Turn lights off for 1 dot unit after each dot/dash
+    // Turn lights off for 1 dot unit after each flash of the light
     unitDuration = DOT_UNIT_LEN;
     GPIOPinWrite(RED_GPIO_BASE, RED_GPIO_PIN, 0x0);
     GPIOPinWrite(BLUE_GPIO_BASE, BLUE_GPIO_PIN, 0x0);

@@ -21,6 +21,9 @@
 /* Use these to set length of short and long pulses, expressed in timer cycles */
 #define DOT_UNIT_LEN            1000
 #define DASH_UNIT_LEN           3000
+#define END_UNIT_LEN            4000
+#define SPACE_UNIT_LEN          15000
+#define START_UNIT_LEN          600
 
 
 /* GPIO Pin Defines */
