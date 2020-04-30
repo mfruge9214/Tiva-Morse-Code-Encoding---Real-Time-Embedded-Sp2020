@@ -25,18 +25,20 @@ static int LookupIdx(char c);
 int DecodeString(char* str, MorseTranslation_t* ret)
 {
     char current;
+    int start_idx = 0;
+    int curr_idx = 0;
     int i = 0;
     MorseTranslation_t morsechar;
     MorseTranslation_t* translated_string = ret;
 //    MorseUnit_e (*MorseWord)[MAX_MORSE_UNITS];
     MorseUnit_e* Morseword;
 
+    /* Add the Start character to the beginning of the translation */
     morsechar = MorseLookup[NUM_MORSE_CHARS - 1];
+    translated_string[start_idx] = morsechar;
+    start_idx++;
 
-    translated_string[i] = morsechar;
-
-    i++;
-
+    /* Check inputs and use lookup table */
     while(str[i] != 0 && i < MAX_INPUT_LENGTH)
     {
         current = str[i];
@@ -59,15 +61,18 @@ int DecodeString(char* str, MorseTranslation_t* ret)
 
         if(letter_idx == -1) return -1;
 
+        /* Save the character as its morse translation */
         morsechar = MorseLookup[letter_idx];
 
-        translated_string[i] = morsechar;
+        /* Add to the return string */
+        translated_string[i + start_idx] = morsechar;
 
         i++;
 
     }
 
-    return i;
+    /* Return the length of the translated string */
+    return i + start_idx;
 }
 
 
@@ -91,7 +96,7 @@ static int LookupIdx(char c)
     }
     else if( c == ' ')      // Handles Space
     {
-        index = NUM_MORSE_CHARS - 2;    // Last entry in thee lookup table
+        index = NUM_MORSE_CHARS - 2;    // Second to last entry in the lookup table
     }
 
     return index;
