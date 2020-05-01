@@ -174,11 +174,11 @@ void LEDWrite(MorseUnit_e unit)
             break;
         case END:
             unitDuration = END_UNIT_LEN;
-            GPIOPinWrite(BLUE_GPIO_BASE, BLUE_GPIO_PIN, BLUE_GPIO_PIN);
+            GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_BASE, GREEN_GPIO_BASE);
             break;
         case SPACE:
             unitDuration = SPACE_UNIT_LEN;
-            GPIOPinWrite(RED_GPIO_BASE, RED_GPIO_PIN, RED_GPIO_PIN);
+            GPIOPinWrite(GREEN_GPIO_BASE, GREEN_GPIO_BASE, GREEN_GPIO_BASE);
             break;
         case START:
             unitDuration = START_UNIT_LEN;

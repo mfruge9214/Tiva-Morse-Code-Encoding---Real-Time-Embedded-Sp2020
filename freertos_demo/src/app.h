@@ -1,5 +1,5 @@
 /*************************
- * File: app.c
+ * File: app.h
  *      This header file declares all tasks, variables, and defines required for the Light FLashing Portion of RTES Sp2020 Final Project
  *
  * Author: Mike Fruge
@@ -21,8 +21,8 @@
 /* Use these to set length of short and long pulses, expressed in timer cycles */
 #define DOT_UNIT_LEN            1000
 #define DASH_UNIT_LEN           3000
-#define END_UNIT_LEN            4000
-#define SPACE_UNIT_LEN          15000
+#define END_UNIT_LEN            3000
+#define SPACE_UNIT_LEN          7000
 #define START_UNIT_LEN          600
 
 
