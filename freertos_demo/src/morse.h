@@ -36,14 +36,14 @@ static MorseTranslation_t MorseLookup[NUM_MORSE_CHARS] = {
                                                        {DOT, DASH, DOT, DOT, END},      // L
                                                        {DASH, DASH, END},               // M
                                                        {DASH, DOT, END},                // N
-                                                       {DASH, DASH, DASH, DASH, END},   // O
+                                                       {DASH, DASH, DASH, END},        // O
                                                        {DOT, DASH, DASH, DOT, END},     // P
                                                        {DASH, DASH, DOT, DASH, END},    // Q
                                                        {DOT, DASH, DOT, END},           // R
                                                        {DOT, DOT, DOT, END},            // S
                                                        {DASH, END},                     // T
                                                        {DOT, DOT, DASH, END},           // U
-                                                       {DOT, DOT, DOT, DASH, DASH, END}, // V
+                                                       {DOT, DOT, DOT, DASH, END},       // V
                                                        {DOT, DASH, DASH, END},           // W
                                                        {DASH, DOT, DOT, DASH, END},          // X
                                                        {DASH, DOT, DASH, DASH, END},         // Y

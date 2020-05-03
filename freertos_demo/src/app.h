@@ -6,8 +6,6 @@
  */
 
 #include <stdint.h>
-
-
 #include "FreeRTOS.h"
 #include "timers.h"
 #include "semphr.h"
@@ -19,11 +17,11 @@
 #define SECOND_SLICE            6000
 
 /* Use these to set length of short and long pulses, expressed in timer cycles */
-#define DOT_UNIT_LEN            1000
-#define DASH_UNIT_LEN           3000
-#define END_UNIT_LEN            3000
-#define SPACE_UNIT_LEN          7000
-#define START_UNIT_LEN          600
+#define DOT_UNIT_LEN            1200//1000
+#define DASH_UNIT_LEN           3950//3000
+#define END_UNIT_LEN            2400//3000
+#define SPACE_UNIT_LEN          7700//7000
+#define START_UNIT_LEN          1000//600
 
 
 /* GPIO Pin Defines */
@@ -38,7 +36,6 @@
 #define BLUE_GPIO_PIN           GPIO_PIN_2
 #define GREEN_GPIO_PIN          GPIO_PIN_3
 
-
 /* Struct to hold messages */
 
 typedef struct {
@@ -47,20 +44,12 @@ typedef struct {
     uint8_t ExecutionNum;
 } MessageStruct_t;
 
-
-
-/* Create a message queue to be read out after test has concluded */
-QueueHandle_t LogMsgQueue;
-
 /* Message queue used to transport the Morse Packages */
 QueueHandle_t mqTranslatedChars;
-
 
 /* Task Handles defined for notifications */
 TaskHandle_t thFlashMorse;
 TaskHandle_t thGetAndTrans;
-
-
 
 void myTimerIntHandler(void);
 
@@ -70,4 +59,3 @@ void FlashMorseTask(void* pvParameters);
 void InitLedGPIOpio(void);
 void LEDWrite(MorseUnit_e unit);
 void StartMorseTimer(void);
-
